@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LifeLaunch helps you find one clear next step when life feels overwhelming.">
+  <title>LifeLaunch — Your Next Step</title>
+  <style>
+    :root {
+      --green: #176b55;
+      --light: #edf7f1;
+      --ink: #20332d;
+      --muted: #61716a;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f8f5;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+      background: var(--white);
+      border-bottom: 1px solid #e2eae4;
+    }
+
+    .brand { font-size: 24px; font-weight: 800; color: var(--green); }
+    .brand span { color: #e1a348; }
+    main { max-width: 700px; margin: auto; padding: 30px 18px 50px; }
+    .hero { text-align: center; margin-bottom: 28px; }
+    .tag { color: var(--green); font-weight: bold; font-size: 13px; letter-spacing: 1px; }
+    h1 { font-size: clamp(30px, 7vw, 44px); line-height: 1.15; margin: 12px 0; }
+    .intro { color: var(--muted); max-width: 500px; margin: auto; }
+    .panel { background: var(--white); border: 1px solid #e1e9e3; border-radius: 20px; padding: 22px; box-shadow: 0 8px 25px #193d2010; }
+    h2 { font-size: 21px; margin-top: 0; }
+    .choices { display: grid; gap: 10px; }
+    button { font: inherit; cursor: pointer; }
+    .choice { width: 100%; text-align: left; padding: 15px; background: #fff; border: 1px solid #d7e3da; border-radius: 12px; color: var(--ink); }
+    .choice:hover, .choice:focus { border-color: var(--green); background: var(--light); }
+    .choice strong { display: block; }
+    .choice small { color: var(--muted); }
+    .field { margin: 18px 0; }
+    label { display: block; font-weight: bold; margin-bottom: 7px; }
+    textarea, select { width: 100%; font: inherit; padding: 12px; border: 1px solid #cbd8cf; border-radius: 10px; background: white; color: var(--ink); }
+    textarea { min-height: 95px; resize: vertical; }
+    .primary { border: 0; border-radius: 11px; background: var(--green); color: white; font-weight: bold; padding: 13px 18px; width: 100%; }
+    .primary:hover { background: #10513f; }
+    .secondary { background: transparent; color: var(--green); border: 1px solid var(--green); border-radius: 10px; padding: 10px 14px; }
+    .hidden { display: none; }
+    .result { margin-top: 20px; padding: 18px; background: var(--light); border-radius: 14px; border-left: 4px solid var(--green); }
+    .result h3 { margin-top: 0; }
+    .result li { margin: 8px 0; }
+    .note { font-size: 13px; color: var(--muted); margin-top: 16px; }
+    footer { text-align: center; padding: 22px; color: var(--muted); font-size: 13px; }
+    button:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid #e1a348; outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">Life<span>Launch</span></div>
+    <div>Your Next Step</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="tag">ONE STEP AT A TIME</div>
+      <h1>You don't have to figure everything out today.</h1>
+      <p class="intro">When life feels overwhelming, start here. Tell us what's difficult and we'll help you find one manageable next step.</p>
+    </section>
+
+    <section class="panel" id="start">
+      <h2>What's making things difficult?</h2>
+      <div class="choices">
+        <button class="choice" data-kind="many">
+          <strong>📚 I have too many things to do</strong>
+          <small>Help me sort out my tasks.</small>
+        </button>
+        <button class="choice" data-kind="start">
+          <strong>🧭 I don't know where to start</strong>
+          <small>Help me choose my first step.</small>
+        </button>
+        <button class="choice" data-kind="energy">
+          <strong>🌱 I have little time or energy</strong>
+          <small>Help me find a small, realistic action.</small>
+        </button>
+      </div>
+
+      <div id="questions" class="hidden">
+        <div class="field">
+          <label for="problem">What's on your mind? (Optional)</label>
+          <textarea id="problem" maxlength="500" placeholder="For example: I have homework, my room is messy, and I need to prepare for tomorrow."></textarea>
+        </div>
+        <div class="field">
+          <label for="time">How much time do you have?</label>
+          <select id="time">
+            <option value="5">About 5 minutes</option>
+            <option value="15" selected>About 15 minutes</option>
+            <option value="30">About 30 minutes</option>
+            <option value="60">An hour or more</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="energy">How much energy do you have?</label>
+          <select id="energy">
+            <option value="low">Very little</option>
+            <option value="medium" selected>Some</option>
+            <option value="high">Plenty</option>
+          </select>
+        </div>
+        <button class="primary" id="makePlan">Help me choose my next step</button>
+        <p class="note">Your answers are processed in this page and aren't sent to a server or saved by this tool. Avoid entering private or sensitive details.</p>
+      </div>
+
+      <div id="result" class="result hidden" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer>LifeLaunch · Small steps can help you move forward.</footer>
+
+  <script>
+    const questions = document.getElementById("questions");
+    const result = document.getElementById("result");
+    const problem = document.getElementById("problem");
+    let selectedKind = "start";
+
+    document.querySelectorAll(".choice").forEach(button => {
+      button.addEventListener("click", () => {
+        selectedKind = button.dataset.kind;
+        questions.classList.remove("hidden");
+        result.classList.add("hidden");
+        document.getElementById("start").scrollIntoView({ behavior: "smooth", block: "start" });
+        problem.focus({ preventScroll: true });
+      });
+    });
+
+    document.getElementById("makePlan").addEventListener("click", () => {
+      const minutes = Number(document.getElementById("time").value);
+      const energy = document.getElementById("energy").value;
+      const description = problem.value.trim();
+      let title, reason, steps;
+
+      if (selectedKind === "many") {
+        title = "Make a little space in your task list.";
+        reason = "You don't need to finish everything at once. First, make the next decision easier.";
+        steps = [
+          "Write down up to three things that matter most.",
+          "Check whether any have a deadline soon.",
+          "Choose one small action you can start now."
+        ];
+      } else if (selectedKind === "energy") {
+        title = "Choose the smallest useful action.";
+        reason = "A small step is enough for a starting point. You can reassess afterwards.";
+        steps = [
+          "Pick one task that would make today a little easier.",
+          "Shrink it to something you can do in " + minutes + " minutes.",
+          "Try that small step, then decide whether to rest or continue."
+        ];
+      } else {
+        title = "Start before you have the whole plan.";
+        reason = "You can learn what to do next after taking one simple first step.";
+        steps = [
+          "Name the one thing you want to make progress on.",
+          "Choose the easiest useful action you can take in " + minutes + " minutes.",
+          "Do just that action, then decide on the next step."
+        ];
+      }
+
+      if (energy === "low") {
+        title = "Keep it very small today.";
+        reason = "Your plan should fit the energy you have right now. You don't need to do everything.";
+        steps = [
+          "Choose one thing that would make the next few hours easier.",
+          "Spend just " + Math.min(minutes, 5) + " minutes getting started.",
+          "Pause and check how you feel before deciding what comes next."
+        ];
+      }
+
+      if (description) {
+        reason += " Your situation: “" + description + "” Remember, you can adjust this plan to fit your needs.";
+      }
+
+      result.replaceChildren();
+      const heading = document.createElement("h3");
+      heading.textContent = "🌿 " + title;
+      const explanation = document.createElement("p");
+      explanation.textContent = reason;
+      const list = document.createElement("ol");
+
+      steps.forEach(step => {
+        const item = document.createElement("li");
+        item.textContent = step;
+        list.appendChild(item);
+      });
+
+      const restart = document.createElement("button");
+      restart.className = "secondary";
+      restart.textContent = "Try a different plan";
+      restart.addEventListener("click", () => {
+        result.classList.add("hidden");
+        questions.classList.add("hidden");
+        problem.value = "";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      result.append(heading, explanation, list, restart);
+      result.classList.remove("hidden");
+      result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+  </script>
+</body>
+</html>
