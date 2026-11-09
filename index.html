@@ -1,0 +1,346 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="LifeLaunch helps you decide what to do first, one small step at a time.">
+<title>LifeLaunch — Your Next Step</title>
+<style>
+:root {
+  --green: #176b55;
+  --light: #edf7f1;
+  --ink: #20332d;
+  --muted: #61716a;
+  --white: #fff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f8f5;
+  color: var(--ink);
+  line-height: 1.6;
+}
+header {
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border-bottom: 1px solid #e1e9e3;
+}
+.brand { font-size: 25px; font-weight: 800; color: var(--green); }
+.brand span { color: #e1a348; }
+main { max-width: 720px; margin: auto; padding: 28px 16px 45px; }
+.hero { text-align: center; margin-bottom: 25px; }
+.tag { color: var(--green); font-size: 12px; font-weight: bold; letter-spacing: 1.5px; }
+h1 { font-size: clamp(30px, 7vw, 43px); line-height: 1.15; margin: 12px 0; }
+.intro { color: var(--muted); max-width: 500px; margin: auto; }
+.panel {
+  background: white;
+  border: 1px solid #e1e9e3;
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 7px 24px #193d2009;
+}
+h2 { font-size: 21px; margin-top: 0; }
+.field { margin: 16px 0; }
+label { display: block; font-weight: bold; margin-bottom: 6px; }
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  font: inherit;
+  color: var(--ink);
+  background: white;
+  border: 1px solid #cbd8cf;
+  border-radius: 10px;
+}
+textarea { min-height: 75px; resize: vertical; }
+small, .muted { color: var(--muted); }
+.task {
+  padding: 13px;
+  margin: 12px 0;
+  border: 1px solid #dce6de;
+  border-radius: 12px;
+  background: #fbfdfb;
+}
+.task h3 { font-size: 16px; margin: 0 0 8px; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+button { font: inherit; cursor: pointer; }
+.primary, .secondary {
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-weight: bold;
+}
+.primary { width: 100%; color: white; background: var(--green); border: 0; }
+.primary:hover { background: #10513f; }
+.secondary { color: var(--green); background: white; border: 1px solid var(--green); }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid #e1a348;
+  outline-offset: 2px;
+}
+.result {
+  background: var(--light);
+  border-left: 4px solid var(--green);
+  border-radius: 12px;
+  padding: 18px;
+  margin-top: 20px;
+}
+.result h3 { margin-top: 0; }
+.result li { margin: 8px 0; }
+.hidden { display: none; }
+.note { font-size: 13px; color: var(--muted); }
+footer { text-align: center; color: var(--muted); padding: 20px; font-size: 13px; }
+@media (max-width: 430px) {
+  .two { grid-template-columns: 1fr; }
+  .panel { padding: 16px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Life<span>Launch</span></div>
+  <div>Your Next Step</div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="tag">SMALL STEPS, REAL PROGRESS</div>
+    <h1>Let's make things feel more manageable.</h1>
+    <p class="intro">Tell us what you need to do. LifeLaunch will help you choose a sensible first step.</p>
+  </section>
+
+  <section class="panel">
+    <h2>1. What do you need to do?</h2>
+    <p class="muted">Enter up to three tasks. You don't need a perfect plan.</p>
+
+    <div class="task">
+      <h3>Task 1</h3>
+      <div class="field">
+        <label for="task1">Task name</label>
+        <input id="task1" maxlength="120" placeholder="e.g. Study for Natural Sciences">
+      </div>
+      <div class="two">
+        <div class="field">
+          <label for="due1">When is it due?</label>
+          <select id="due1">
+            <option value="today">Today</option>
+            <option value="tomorrow">Tomorrow</option>
+            <option value="week">Within a week</option>
+            <option value="later">Later / no deadline</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="mins1">Time needed</label>
+          <select id="mins1">
+            <option value="5">5 minutes</option>
+            <option value="15">15 minutes</option>
+            <option value="30" selected>30 minutes</option>
+            <option value="60">1 hour</option>
+            <option value="120">2 hours or more</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <h3>Task 2 (optional)</h3>
+      <div class="field">
+        <label for="task2">Task name</label>
+        <input id="task2" maxlength="120" placeholder="e.g. Finish my homework">
+      </div>
+      <div class="two">
+        <div class="field">
+          <label for="due2">When is it due?</label>
+          <select id="due2">
+            <option value="today">Today</option>
+            <option value="tomorrow" selected>Tomorrow</option>
+            <option value="week">Within a week</option>
+            <option value="later">Later / no deadline</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="mins2">Time needed</label>
+          <select id="mins2">
+            <option value="5">5 minutes</option>
+            <option value="15" selected>15 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="60">1 hour</option>
+            <option value="120">2 hours or more</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="task">
+      <h3>Task 3 (optional)</h3>
+      <div class="field">
+        <label for="task3">Task name</label>
+        <input id="task3" maxlength="120" placeholder="e.g. Tidy my room">
+      </div>
+      <div class="two">
+        <div class="field">
+          <label for="due3">When is it due?</label>
+          <select id="due3">
+            <option value="today">Today</option>
+            <option value="tomorrow">Tomorrow</option>
+            <option value="week">Within a week</option>
+            <option value="later" selected>Later / no deadline</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="mins3">Time needed</label>
+          <select id="mins3">
+            <option value="5">5 minutes</option>
+            <option value="15" selected>15 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="60">1 hour</option>
+            <option value="120">2 hours or more</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="available">How much time do you have right now?</label>
+      <select id="available">
+        <option value="5">5 minutes</option>
+        <option value="15" selected>15 minutes</option>
+        <option value="30">30 minutes</option>
+        <option value="60">1 hour</option>
+        <option value="120">More than an hour</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="energy">How much energy do you have?</label>
+      <select id="energy">
+        <option value="low">Very little</option>
+        <option value="medium" selected>Some</option>
+        <option value="high">Plenty</option>
+      </select>
+    </div>
+
+    <button class="primary" id="planButton">Help me choose my first task</button>
+    <p class="note">Your entries stay in this page and aren't sent to a server or saved by this tool. Avoid entering private information.</p>
+
+    <div id="result" class="result hidden" aria-live="polite"></div>
+  </section>
+</main>
+
+<footer>LifeLaunch · You can take things one step at a time.</footer>
+
+<script>
+const byId = id => document.getElementById(id);
+
+byId("planButton").addEventListener("click", () => {
+  const tasks = [];
+
+  for (let i = 1; i <= 3; i++) {
+    const name = byId("task" + i).value.trim();
+    if (!name) continue;
+
+    tasks.push({
+      name,
+      due: byId("due" + i).value,
+      minutes: Number(byId("mins" + i).value),
+      original: i
+    });
+  }
+
+  const result = byId("result");
+  result.replaceChildren();
+  result.classList.remove("hidden");
+
+  if (tasks.length === 0) {
+    const message = document.createElement("p");
+    message.textContent = "Enter at least one task so I can help you choose what to do first.";
+    result.appendChild(message);
+    return;
+  }
+
+  const available = Number(byId("available").value);
+  const energy = byId("energy").value;
+
+  const deadlineScore = {
+    today: 40,
+    tomorrow: 30,
+    week: 20,
+    later: 10
+  };
+
+  // Rank tasks by deadline, then favour tasks that fit the time available.
+  // These are simple suggestions, not a guarantee of the true priority.
+  tasks.forEach(task => {
+    task.score = deadlineScore[task.due];
+    if (task.minutes <= available) task.score += 8;
+    if (task.minutes > available) task.score -= 5;
+    if (energy === "low" && task.minutes <= 15) task.score += 6;
+    if (energy === "low" && task.minutes >= 60) task.score -= 4;
+  });
+
+  tasks.sort((a, b) => b.score - a.score);
+  const chosen = tasks[0];
+  const heading = document.createElement("h3");
+  heading.textContent = "🌱 Your suggested first task";
+  const name = document.createElement("p");
+  const strong = document.createElement("strong");
+  strong.textContent = chosen.name;
+  name.appendChild(strong);
+
+  const explanation = document.createElement("p");
+  const dueWords = {
+    today: "due today",
+    tomorrow: "due tomorrow",
+    week: "due within a week",
+    later: "not due soon or has no deadline"
+  };
+
+  explanation.textContent =
+    "I picked this because it is " + dueWords[chosen.due] +
+    (chosen.minutes <= available
+      ? " and its estimated time fits the time you have."
+      : ". It may take longer than the time you have, so start with a small part.") +
+    " Check that this matches your real priorities.";
+
+  const listTitle = document.createElement("p");
+  listTitle.textContent = "Try these small steps:";
+  const list = document.createElement("ol");
+  const steps = chosen.minutes <= available
+    ? [
+        "Get what you need for this task ready.",
+        "Work on it for " + Math.min(chosen.minutes, available, energy === "low" ? 5 : 15) + " minutes.",
+        "Check your progress and decide what to do next."
+      ]
+    : [
+        "Choose one small part of this task.",
+        "Work on that part for " + Math.min(5, available) + " minutes.",
+        "If you need more time, plan when you can continue."
+      ];
+
+  steps.forEach(text => {
+    const li = document.createElement("li");
+    li.textContent = text;
+    list.appendChild(li);
+  });
+
+  const otherTitle = document.createElement("p");
+  otherTitle.textContent = tasks.length > 1
+    ? "Your other tasks can wait until you review this first step, unless another deadline is more urgent."
+    : "Add another task if you want help comparing priorities.";
+
+  const reset = document.createElement("button");
+  reset.className = "secondary";
+  reset.textContent = "Clear and start again";
+  reset.addEventListener("click", () => {
+    for (let i = 1; i <= 3; i++) byId("task" + i).value = "";
+    result.classList.add("hidden");
+    byId("task1").focus();
+  });
+
+  result.append(heading, name, explanation, listTitle, list, otherTitle, reset);
+  result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+});
+</script>
+</body>
+</html>
